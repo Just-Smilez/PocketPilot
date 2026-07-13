@@ -1,17 +1,15 @@
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <div>
-      <h1>PocketPilot 💰</h1>
-      <p>Take control of your finances.</p>
+      <Navbar />
 
-          <div>
-      <h1>Sanusi Kamaldeen</h1>
-    <p>7/8/2026</p>
-    <button>Get Started</button>
-    </div>
-    </div>
+      <h1>Welcome, Kamaldeen 👋</h1>
+      <p>Building my first React application.</p>
 
-    
+      <button>Get Started</button>
+    </div>
   );
 }
 
