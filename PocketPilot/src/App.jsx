@@ -1,15 +1,11 @@
-import Navbar from "./components/Navbar";
+import Layout from "./components/layout/layout";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <div>
-      <Navbar />
-
-      <h1>Welcome, Kamaldeen 👋</h1>
-      <p>Building my first React application.</p>
-
-      <button>Get Started</button>
-    </div>
+    <Layout>
+      <Dashboard />
+    </Layout>
   );
 }
 
