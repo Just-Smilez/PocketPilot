@@ -5,103 +5,134 @@ function TransactionModal({ onClose, onSave }) {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const handleSubmit = () => {
-  const transaction = {
-    type,
-    amount,
-    category,
-    description,
-  };
 
-  onSave(transaction);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const transaction = {
+      type,
+      amount,
+      category,
+      description,
+    };
+
+    onSave(transaction);
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-      <div className="bg-white w-full max-w-md rounded-xl p-6 shadow-xl">
-        <h2 className="text-2xl font-bold text-gray-800">
-          Add Transaction
-        </h2>
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-xl">
 
-        <p className="text-gray-500 mt-1">
-          Record your income or expense.
-        </p>
+        {/* Header */}
+        <div className="p-6 border-b border-gray-100">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Add Transaction
+          </h2>
 
-        <div className="mt-6">
-         <label className="block text-sm font-medium text-gray-700 mb-2">
-            Type
-         </label>
-
-         <select
-           value={type}
-           onChange={(e) => setType(e.target.value)}
-           className="w-full border border-gray-300 rounded-lg px-3 py-2">
-         <option value="income">Income</option>
-         <option value="expense">Expense</option>
-         </select>
-
+          <p className="text-sm text-gray-500 mt-1">
+            Record your income or expense.
+          </p>
         </div>
 
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Amount
-          </label>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-6">
 
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2"
-          />
-        </div>
+          {/* Type */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Transaction Type
+            </label>
 
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Category
-          </label>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            >
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </div>
 
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2">
-          <option value="">Select a category</option>
-          <option value="salary">Salary</option>
-          <option value="business">Business</option>
-          <option value="food">Food</option>
-          <option value="transport">Transport</option>
-          <option value="shopping">Shopping</option>
-          <option value="bills">Bills</option>
-          <option value="other">Other</option>
-          </select>
-        </div>
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Description
-          </label>
+          {/* Amount */}
+          <div className="mt-5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Amount
+            </label>
+
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                ₦
+              </span>
+
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="0.00"
+                required
+                className="w-full border border-gray-300 rounded-lg pl-8 pr-3 py-2.5 outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+          </div>
+
+          {/* Category */}
+          <div className="mt-5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Category
+            </label>
+
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            >
+              <option value="">Select a category</option>
+              <option value="salary">Salary</option>
+              <option value="business">Business</option>
+              <option value="food">Food</option>
+              <option value="transport">Transport</option>
+              <option value="shopping">Shopping</option>
+              <option value="bills">Bills</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          {/* Description */}
+          <div className="mt-5">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Description
+            </label>
+
             <input
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="e.g. July salary"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
-        </div>
+          </div>
 
-        <div className="mt-6 flex justify-end gap-3">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800">
-            Cancel
-          </button>
+          {/* Buttons */}
+          <div className="flex justify-end gap-3 mt-7">
 
-          <button
-            onClick={handleSubmit}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-            Save Transaction
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2.5 rounded-lg text-gray-600 font-medium transition-colors duration-200 hover:bg-gray-100 hover:text-gray-800"
+            >
+              Cancel
+            </button>
 
+            <button
+              type="submit"
+              className="px-5 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md"
+            >
+              Save Transaction
+            </button>
+
+          </div>
+        </form>
       </div>
     </div>
   );

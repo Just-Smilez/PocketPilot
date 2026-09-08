@@ -1,13 +1,18 @@
 import Navbar from "./Navbar";
+import Sidebar from "./sidebar";
 
 function Layout({ children }) {
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto p-6">
-        {children}
-      </main>
+      <div className="flex">
+        <Sidebar />
+
+        <main className="flex-1 max-w-7xl p-6">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

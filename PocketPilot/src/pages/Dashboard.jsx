@@ -67,17 +67,19 @@ const handleDeleteTransaction = (id) => {
 
 return (
   <>
-    <h2 className="text-4xl font-bold text-gray-800">
-      Good Evening 👋
-    </h2>
+    <div>
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+        Good Evening 👋
+      </h2>
 
-    <p className="text-gray-500 mt-2">
-      Welcome back, Kamaldeen.
-    </p>
+      <p className="text-gray-500 mt-2">
+        Welcome back, Kamaldeen.
+      </p>
 
-    <p className="text-gray-500">
-      Manage your money with confidence.
-    </p>
+      <p className="text-sm text-gray-400 mt-1">
+        Manage your money with confidence.
+      </p>
+    </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
       <BalanceCard
@@ -103,8 +105,7 @@ return (
 
     <button
       onClick={() => setIsModalOpen(true)}
-      className="mt-6 bg-blue-600 text-white px-5 py-3 rounded-lg font-medium hover:bg-blue-700"
-    >
+      className="mt-6 bg-blue-600 text-white px-5 py-3 rounded-lg font-medium shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md hover:-translate-y-0.5">
       + Add Transaction
     </button>
 
