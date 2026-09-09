@@ -5,42 +5,68 @@ import {
   FiSettings,
 } from "react-icons/fi";
 
+import { NavLink } from "react-router-dom";
+
 function Sidebar() {
   return (
     <aside className="w-64 min-h-[calc(100vh-73px)] bg-white border-r border-gray-200 p-4">
       <nav className="space-y-2">
 
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-50 text-blue-600 font-medium transition-all duration-200 hover:bg-blue-100"
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+              isActive
+                ? "bg-blue-50 text-blue-600"
+                : "text-gray-600 hover:bg-gray-100 hover:text-blue-600"
+            }`
+          }
         >
           <FiHome />
-          Dashboard
-        </a>
+            Dashboard
+        </NavLink>
 
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 font-medium transition-all duration-200 hover:bg-gray-100 hover:text-blue-600"
+        <NavLink
+          to="/transactions"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+              isActive
+                ? "bg-blue-50 text-blue-600"
+                : "text-gray-600 hover:bg-gray-100 hover:text-blue-600"
+            }`
+          }
         >
           <FiList />
-          Transactions
-        </a>
+            Transactions
+        </NavLink>
 
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 font-medium transition-all duration-200 hover:bg-gray-100 hover:text-blue-600"
+        <NavLink
+          to="/analytics"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+              isActive
+                ?  "bg-blue-50 text-blue-600"
+                : "text-gray-600 hover:bg-gray-100 hover:text-blue-600"
+            }`
+          }
         >
           <FiBarChart2 />
-          Analytics
-        </a>
+            Analytics
+        </NavLink>
 
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 font-medium transition-all duration-200 hover:bg-gray-100 hover:text-blue-600"
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+              isActive
+                ? "bg-blue-50 text-blue-600"
+                : "text-gray-600 hover:bg-gray-100 hover:text-blue-600"
+            }`
+          }
         >
           <FiSettings />
-          Settings
-        </a>
+            Settings
+        </NavLink>
 
       </nav>
     </aside>

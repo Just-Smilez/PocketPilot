@@ -1,11 +1,73 @@
-import Layout from "./components/layout/layout";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
+import Transactions from "./pages/Transactions";
 
 function App() {
+  const [transactions, setTransactions] = useState(() => {
+    const savedTransactions = localStorage.getItem("transactions");
+
+    return savedTransactions
+      ? JSON.parse(savedTransactions)
+      : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "transactions",
+      JSON.stringify(transactions)
+    );
+  }, [transactions]);
+
+  const handleSaveTransaction = (transaction) => {
+    const newTransaction = {
+      ...transaction,
+      id: Date.now(),
+    };
+
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      newTransaction,
+    ]);
+  };
+
+  const handleDeleteTransaction = (id) => {
+    setTransactions((prevTransactions) =>
+      prevTransactions.filter(
+        (transaction) => transaction.id !== id
+      )
+    );
+  };
+
   return (
-    <Layout>
-      <Dashboard />
-    </Layout>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Dashboard
+                transactions={transactions}
+                onSaveTransaction={handleSaveTransaction}
+                onDeleteTransaction={handleDeleteTransaction}
+              />
+            }
+          />
+
+          <Route
+            path="/transactions"
+            element={
+              <Transactions
+                transactions={transactions}
+                onDelete={handleDeleteTransaction}
+              />
+            }
+          />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   );
 }
 

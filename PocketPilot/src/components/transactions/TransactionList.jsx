@@ -1,8 +1,8 @@
 function TransactionList({ transactions, onDelete }) {
   return (
-    <div className="mt-8 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-      
-      <div className="flex items-center justify-between">
+    <div className="mt-8 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+
+      <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-gray-800">
             Recent Transactions
@@ -13,16 +13,17 @@ function TransactionList({ transactions, onDelete }) {
           </p>
         </div>
 
-        <span className="text-sm text-gray-400">
-          {transactions.length} transaction
-          {transactions.length !== 1 ? "s" : ""}
-        </span>
+        {transactions.length > 0 && (
+          <span className="text-sm text-gray-400">
+            {transactions.length} total
+          </span>
+        )}
       </div>
 
-      <div className="mt-6">
+      <div className="px-6">
         {transactions.length === 0 ? (
-          <div className="py-10 text-center">
-            <p className="text-gray-500">
+          <div className="py-12 text-center">
+            <p className="text-gray-500 font-medium">
               No transactions yet.
             </p>
 
@@ -31,24 +32,24 @@ function TransactionList({ transactions, onDelete }) {
             </p>
           </div>
         ) : (
-          transactions.map((transaction) => (
+          transactions.slice(-5).reverse().map((transaction) => (
             <div
               key={transaction.id}
-              className="flex items-center justify-between border-b border-gray-100 py-4 last:border-b-0"
+              className="flex items-center justify-between gap-4 py-5 border-b border-gray-100 last:border-b-0"
             >
-              <div>
+              <div className="min-w-0">
                 <p className="font-semibold text-gray-800 capitalize">
                   {transaction.category}
                 </p>
 
-                <p className="text-sm text-gray-500 mt-1">
-                  {transaction.description}
+                <p className="text-sm text-gray-500 mt-1 truncate">
+                  {transaction.description || "No description"}
                 </p>
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-5 shrink-0">
                 <p
-                  className={`font-bold ${
+                  className={`font-semibold ${
                     transaction.type === "income"
                       ? "text-green-600"
                       : "text-red-600"
@@ -60,7 +61,7 @@ function TransactionList({ transactions, onDelete }) {
 
                 <button
                   onClick={() => onDelete(transaction.id)}
-                  className="text-sm text-gray-400 hover:text-red-600 transition-colors duration-200"
+                  className="text-sm text-gray-400 transition-colors duration-200 hover:text-red-600"
                 >
                   Delete
                 </button>
