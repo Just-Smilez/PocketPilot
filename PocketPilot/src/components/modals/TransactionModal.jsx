@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiX } from "react-icons/fi";
 
 function TransactionModal({ onClose, onSave }) {
   const [type, setType] = useState("income");
@@ -9,29 +10,43 @@ function TransactionModal({ onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const transaction = {
+    if (!amount || !category) {
+      return;
+    }
+
+    onSave({
       type,
       amount,
       category,
       description,
-    };
-
-    onSave(transaction);
+    });
   };
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+
       <div className="bg-white w-full max-w-md rounded-2xl shadow-xl">
 
         {/* Header */}
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-2xl font-bold text-gray-800">
-            Add Transaction
-          </h2>
+        <div className="flex items-start justify-between p-6 border-b border-gray-100">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800">
+              Add Transaction
+            </h2>
 
-          <p className="text-sm text-gray-500 mt-1">
-            Record your income or expense.
-          </p>
+            <p className="text-gray-500 text-sm mt-1">
+              Record your income or expense.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-2 rounded-lg text-gray-400 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-700"
+            aria-label="Close modal"
+          >
+            <FiX className="text-xl" />
+          </button>
         </div>
 
         {/* Form */}
@@ -40,7 +55,7 @@ function TransactionModal({ onClose, onSave }) {
           {/* Type */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Transaction Type
+              Type
             </label>
 
             <select
@@ -54,7 +69,7 @@ function TransactionModal({ onClose, onSave }) {
           </div>
 
           {/* Amount */}
-          <div className="mt-5">
+          <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Amount
             </label>
@@ -66,17 +81,17 @@ function TransactionModal({ onClose, onSave }) {
 
               <input
                 type="number"
+                min="0"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                required
                 className="w-full border border-gray-300 rounded-lg pl-8 pr-3 py-2.5 outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
             </div>
           </div>
 
           {/* Category */}
-          <div className="mt-5">
+          <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Category
             </label>
@@ -84,7 +99,6 @@ function TransactionModal({ onClose, onSave }) {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              required
               className="w-full border border-gray-300 rounded-lg px-3 py-2.5 outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             >
               <option value="">Select a category</option>
@@ -99,7 +113,7 @@ function TransactionModal({ onClose, onSave }) {
           </div>
 
           {/* Description */}
-          <div className="mt-5">
+          <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Description
             </label>
@@ -114,12 +128,12 @@ function TransactionModal({ onClose, onSave }) {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-3 mt-7">
+          <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
 
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-lg text-gray-600 font-medium transition-colors duration-200 hover:bg-gray-100 hover:text-gray-800"
+              className="px-4 py-2.5 rounded-lg text-gray-600 font-medium transition-colors duration-200 hover:bg-gray-100"
             >
               Cancel
             </button>

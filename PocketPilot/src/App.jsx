@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Layout from "./components/layout/Layout";
+import Layout from "./components/Layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
+import Analytics from "./pages/Analytics";
 
 function App() {
   const [transactions, setTransactions] = useState(() => {
@@ -62,6 +63,15 @@ function App() {
               <Transactions
                 transactions={transactions}
                 onDelete={handleDeleteTransaction}
+              />
+            }
+          />
+
+          <Route
+            path="/analytics"
+            element={
+              <Analytics
+                transactions={transactions}
               />
             }
           />
