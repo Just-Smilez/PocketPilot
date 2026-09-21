@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
 
 function App() {
+  // ONE transaction state for the whole application
   const [transactions, setTransactions] = useState(() => {
     const savedTransactions = localStorage.getItem("transactions");
 
@@ -15,6 +17,7 @@ function App() {
       : [];
   });
 
+  // Save transactions whenever they change
   useEffect(() => {
     localStorage.setItem(
       "transactions",
@@ -22,6 +25,7 @@ function App() {
     );
   }, [transactions]);
 
+  // Add transaction
   const handleSaveTransaction = (transaction) => {
     const newTransaction = {
       ...transaction,
@@ -34,6 +38,7 @@ function App() {
     ]);
   };
 
+  // Delete transaction
   const handleDeleteTransaction = (id) => {
     setTransactions((prevTransactions) =>
       prevTransactions.filter(
@@ -46,6 +51,7 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Routes>
+          {/* Dashboard */}
           <Route
             path="/"
             element={
@@ -57,6 +63,7 @@ function App() {
             }
           />
 
+          {/* Transactions */}
           <Route
             path="/transactions"
             element={
@@ -67,12 +74,21 @@ function App() {
             }
           />
 
+          {/* Analytics */}
           <Route
             path="/analytics"
             element={
               <Analytics
                 transactions={transactions}
               />
+            }
+          />
+
+          {/* Settings */}
+          <Route
+            path="/settings"
+            element={
+              <Settings />
             }
           />
         </Routes>
